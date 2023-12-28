@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crochet/Knit App</title>
+    <!-- Favicon link -->
+    <link rel="icon" type="image/png" href="https://cdn0.iconfinder.com/data/icons/arts-and-crafts-2/66/26-256.png">
     <style>
         body {
             margin: 0;
@@ -109,7 +111,6 @@
         #hidden-box:hover {
             transform: translate(0, 50%);
         }
-
     </style>
     <!-- Include the canvas-confetti library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1"></script>
@@ -119,6 +120,7 @@
     <div id="left-side">
         <h1>Crochet/Knit App</h1>
         <button onclick="clearData(); createTable()">Create Table</button>
+        <button onclick="restartPage()">Restart</button> <!-- New restart button -->
     </div>
 
     <div id="right-side">
@@ -316,6 +318,15 @@
 
     function revealHiddenBox() {
         alert("OOP! You found me. I was not spying on you (人◕ω◕)");
+    }
+
+    function restartPage() {
+        // Clear stored descriptions, statuses, and lines
+        clearData();
+        // Remove the table and its content
+        document.getElementById("tableContainer").innerHTML = "";
+        // Hide the right-side container
+        document.getElementById("right-side").classList.remove("has-table");
     }
 </script>
 </body>
