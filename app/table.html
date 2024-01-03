@@ -15,6 +15,9 @@
             min-height: 100vh;
             display: flex;
             color: #fff;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         #container {
@@ -22,15 +25,17 @@
             align-items: center;
             justify-content: space-around;
             width: 100%;
+            flex-direction: column;
         }
 
         #right-side {
             padding: 20px;
             border-radius: 5px;
-            background-color: #f4e2d4; /* Warm light brown color */
+            background-color: rgba(244, 226, 212, 0.45);
             display: none; /* Hide by default */
-            width: 50%;
+            width: 80%;
             box-sizing: border-box;
+            margin-top: 20px;
         }
 
         #right-side.has-table {
@@ -89,6 +94,23 @@
 
         input[type="checkbox"] {
             margin: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 24px; /* Adjusted size */
+            height: 24px; /* Adjusted size */
+            border: 2px solid #fff;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            background: #fff no-repeat center/70% content-box; /* Updated background property */
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #f6878f;
+            border-color: #f6878f;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/5571/5571053.png'); /* Show yarn ball only when checked */
         }
 
         /* New styles for the hidden box */
@@ -176,7 +198,7 @@
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
 
-            cell1.innerHTML = i;
+            cell1.innerHTML = i + ".";
             cell2.innerHTML = "<input type='text' id='desc" + i + "' value='" + getStoredDescription(i) + "' oninput='updateDescription(" + i + ", this.value)'>";
             cell3.innerHTML = "<input type='checkbox' id='status" + i + "' onchange='updateStatus(" + i + ")' " +
                 (getStoredStatus(i) ? "checked" : "") + ">";
@@ -207,6 +229,26 @@
 
         // Check if all tasks are completed and trigger confetti if true
         checkAllTasksCompleted(getNumberOfLines());
+
+        // Center the checked checkbox
+        centerCheckedCheckbox(checkbox);
+    }
+
+    function centerCheckedCheckbox(checkbox) {
+        var windowHeight = window.innerHeight;
+        var checkboxTop = checkbox.getBoundingClientRect().top;
+
+        // Calculate the amount to scroll
+        var scrollAmount = checkboxTop - windowHeight / 2;
+
+        // If the checkbox is below the middle of the screen, scroll to bring it to the middle
+        if (scrollAmount > 0) {
+            // Smooth scroll by a constant amount
+            window.scrollBy({
+                top: scrollAmount,
+                behavior: "smooth",
+            });
+        }
     }
 
     function updateDescription(lineNumber, value) {
